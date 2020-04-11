@@ -12,10 +12,13 @@ for(var i = 0; i < list.length - 1; i++) {
     var overallBidInfo = item.childNodes[1].childNodes[5].childNodes[2];
     var numBidPeople = overallBidInfo.textContent.split(" / ")[0];
     var numBidShare = overallBidInfo.textContent.split(" / ")[1].replace(",", "");
-    var numAvailableShare = item.childNodes[1].childNodes[5].childNodes[3].childNodes[0].textContent.split(" / ")[1].replace(",", "");
+    var availableShareInfo = item.childNodes[1].childNodes[5].childNodes[3].childNodes[0];
+    var numAvailableShare = availableShareInfo.textContent.split(" / ")[1].replace(",", "");
     console.log(myBidPrice, numBidPeople, numBidShare, numAvailableShare);
 
-    if (numBidPeople == 1) {
+    if (numAvailableShare <= 0) {
+        item.style.backgroundColor='#CCCCCC';
+    } else if (numBidPeople == 1) {
         item.style.backgroundColor='#CCFFCC';
     } else if (numBidShare <= numAvailableShare) {
         item.style.backgroundColor='#FFFFCC';
@@ -25,5 +28,9 @@ for(var i = 0; i < list.length - 1; i++) {
         myBidInfo.style.backgroundColor='red';
     } else if (myBidPrice > 20) {
         myBidInfo.style.backgroundColor='yellow';
+    }
+
+    if (numAvailableShare >= 500) {
+        availableShareInfo.style.backgroundColor='blue';
     }
 }
